@@ -159,13 +159,13 @@ class HandshakeSettings(object):
             raise ValueError("maxKeySize smaller than minKeySize")
         for s in other.cipherNames:
             if s not in CIPHER_NAMES:
-                raise ValueError("Unknown cipher name: '%s'" % s)
+                raise ValueError("Unknown cipher name: '{0!s}'".format(s))
         for s in other.cipherImplementations:
             if s not in CIPHER_IMPLEMENTATIONS:
-                raise ValueError("Unknown cipher implementation: '%s'" % s)
+                raise ValueError("Unknown cipher implementation: '{0!s}'".format(s))
         for s in other.certificateTypes:
             if s not in CERTIFICATE_TYPES:
-                raise ValueError("Unknown certificate type: '%s'" % s)
+                raise ValueError("Unknown certificate type: '{0!s}'".format(s))
 
         if other.minVersion > other.maxVersion:
             raise ValueError("Versions set incorrectly")
