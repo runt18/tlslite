@@ -51,7 +51,7 @@ class BaseDB(object):
             raise ValueError("Not a recognized database")
 
     def __getitem__(self, username):
-        if self.db == None:
+        if self.db is None:
             raise AssertionError("DB not open")
 
         self.lock.acquire()
@@ -63,7 +63,7 @@ class BaseDB(object):
         return self._getItem(username, valueStr)
 
     def __setitem__(self, username, value):
-        if self.db == None:
+        if self.db is None:
             raise AssertionError("DB not open")
 
         valueStr = self._setItem(username, value)
@@ -77,7 +77,7 @@ class BaseDB(object):
             self.lock.release()
 
     def __delitem__(self, username):
-        if self.db == None:
+        if self.db is None:
             raise AssertionError("DB not open")
 
         self.lock.acquire()
@@ -99,7 +99,7 @@ class BaseDB(object):
         otherwise.
 
         """
-        if self.db == None:
+        if self.db is None:
             raise AssertionError("DB not open")
 
         self.lock.acquire()
@@ -118,7 +118,7 @@ class BaseDB(object):
         @rtype: list
         @return: The usernames in the database.
         """
-        if self.db == None:
+        if self.db is None:
             raise AssertionError("DB not open")
 
         self.lock.acquire()

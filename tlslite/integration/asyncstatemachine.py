@@ -53,7 +53,7 @@ class AsyncStateMachine:
         if self.writer:
             activeOps += 1
 
-        if self.result == None:
+        if self.result is None:
             if activeOps != 0:
                 raise AssertionError()
         elif self.result in (0,1):
@@ -74,7 +74,7 @@ class AsyncStateMachine:
         @rtype: bool or None
         @return: If the state machine wants to read.
         """
-        if self.result != None:
+        if self.result is not None:
             return self.result == 0
         return None
 
@@ -88,7 +88,7 @@ class AsyncStateMachine:
         @rtype: bool or None
         @return: If the state machine wants to write.
         """
-        if self.result != None:
+        if self.result is not None:
             return self.result == 1
         return None
 
