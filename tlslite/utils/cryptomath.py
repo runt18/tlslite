@@ -146,7 +146,7 @@ def numberToMPI(n):
 def numBits(n):
     if n==0:
         return 0
-    s = "%x" % n
+    s = "{0:x}".format(n)
     return ((len(s)-1)*4) + \
     {'0':0, '1':1, '2':2, '3':2,
      '4':3, '5':3, '6':3, '7':3,

@@ -564,12 +564,12 @@ class TLSConnection(TLSRecordLayer):
         if serverHello.server_version < settings.minVersion:
             for result in self._sendError(\
                 AlertDescription.protocol_version,
-                "Too old version: %s" % str(serverHello.server_version)):
+                "Too old version: {0!s}".format(str(serverHello.server_version))):
                 yield result
         if serverHello.server_version > settings.maxVersion:
             for result in self._sendError(\
                 AlertDescription.protocol_version,
-                "Too new version: %s" % str(serverHello.server_version)):
+                "Too new version: {0!s}".format(str(serverHello.server_version))):
                 yield result
         if serverHello.cipher_suite not in clientHello.cipher_suites:
             for result in self._sendError(\
@@ -693,12 +693,12 @@ class TLSConnection(TLSRecordLayer):
         if numBits(N) < settings.minKeySize:
             for result in self._sendError(\
                     AlertDescription.insufficient_security,
-                    "N value is too small: %d" % numBits(N)):
+                    "N value is too small: {0:d}".format(numBits(N))):
                 yield result
         if numBits(N) > settings.maxKeySize:
             for result in self._sendError(\
                     AlertDescription.insufficient_security,
-                    "N value is too large: %d" % numBits(N)):
+                    "N value is too large: {0:d}".format(numBits(N))):
                 yield result
         if B % N == 0:
             for result in self._sendError(\
@@ -940,11 +940,11 @@ class TLSConnection(TLSRecordLayer):
         publicKey = certChain.getEndEntityPublicKey()
         if len(publicKey) < settings.minKeySize:
             for result in self._sendError(AlertDescription.handshake_failure,
-                    "Other party's public key too small: %d" % len(publicKey)):
+                    "Other party's public key too small: {0:d}".format(len(publicKey))):
                 yield result
         if len(publicKey) > settings.maxKeySize:
             for result in self._sendError(AlertDescription.handshake_failure,
-                    "Other party's public key too large: %d" % len(publicKey)):
+                    "Other party's public key too large: {0:d}".format(len(publicKey))):
                 yield result
         
         # If there's no TLS Extension, look for a TACK cert
@@ -1253,7 +1253,7 @@ class TLSConnection(TLSRecordLayer):
             self.version = settings.minVersion
             for result in self._sendError(\
                   AlertDescription.protocol_version,
-                  "Too old version: %s" % str(clientHello.client_version)):
+                  "Too old version: {0!s}".format(str(clientHello.client_version))):
                 yield result
 
         #If client's version is too high, propose my highest version
@@ -1546,13 +1546,13 @@ class TLSConnection(TLSRecordLayer):
             if len(publicKey) < settings.minKeySize:
                 for result in self._sendError(\
                         AlertDescription.handshake_failure,
-                        "Client's public key too small: %d" % len(publicKey)):
+                        "Client's public key too small: {0:d}".format(len(publicKey))):
                     yield result
 
             if len(publicKey) > settings.maxKeySize:
                 for result in self._sendError(\
                         AlertDescription.handshake_failure,
-                        "Client's public key too large: %d" % len(publicKey)):
+                        "Client's public key too large: {0:d}".format(len(publicKey))):
                     yield result
 
             if not publicKey.verify(certificateVerify.signature, verifyBytes):
