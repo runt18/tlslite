@@ -489,7 +489,7 @@ class TLSConnection(TLSRecordLayer):
         self.session = Session()
         self.session.create(masterSecret, serverHello.session_id, cipherSuite,
             srpUsername, clientCertChain, serverCertChain,
-            tackExt, serverHello.tackExt!=None, serverName)
+            tackExt, serverHello.tackExtis notNone, serverName)
         self._handshakeDone(resumed=False)
 
 
@@ -1126,7 +1126,7 @@ class TLSConnection(TLSRecordLayer):
                                             verifierDB, sessionCache,
                                             anon):
             if result in (0,1): yield result
-            elif result == None:
+            elif result is None:
                 self._handshakeDone(resumed=True)                
                 return # Handshake was resumed, we're done 
             else: break
@@ -1211,7 +1211,7 @@ class TLSConnection(TLSRecordLayer):
             serverName = clientHello.server_name.decode("utf-8")
         self.session.create(masterSecret, serverHello.session_id, cipherSuite,
             srpUsername, clientCertChain, serverCertChain,
-            tackExt, serverHello.tackExt!=None, serverName)
+            tackExt, serverHello.tackExtis notNone, serverName)
             
         #Add the session object to the session cache
         if sessionCache and sessionID:

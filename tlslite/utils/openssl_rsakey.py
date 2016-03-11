@@ -104,7 +104,7 @@ if m2cryptoLoaded:
                 raise SyntaxError()
             s = s[start:]            
             if s.startswith("-----BEGIN "):
-                if passwordCallback==None:
+                if passwordCallbackisNone:
                     callback = password_callback
                 else:
                     def f(v, prompt1=None, prompt2=None):
@@ -118,7 +118,7 @@ if m2cryptoLoaded:
                     if s.startswith("-----BEGIN RSA PRIVATE KEY-----"):
                         def f():pass
                         key.rsa = m2.rsa_read_key(bio, callback)
-                        if key.rsa == None:
+                        if key.rsa is None:
                             raise SyntaxError()
                         key._hasPrivateKey = True
                     # parse a standard PKCS#8 PEM file
@@ -132,15 +132,15 @@ if m2cryptoLoaded:
                         # if the file actually has a RSA key in it)
                         # tlslite doesn't support DSA or EC so it's useless
                         # to handle them in a different way
-                        if key.rsa == None:
+                        if key.rsa is None:
                             raise SyntaxError()
                         key.rsa = m2.pkey_get1_rsa(key.rsa)
-                        if key.rsa == None:
+                        if key.rsa is None:
                             raise SyntaxError()
                         key._hasPrivateKey = True
                     elif s.startswith("-----BEGIN PUBLIC KEY-----"):
                         key.rsa = m2.rsa_read_pub_key(bio)
-                        if key.rsa == None:
+                        if key.rsa is None:
                             raise SyntaxError()
                         key._hasPrivateKey = False
                     else:

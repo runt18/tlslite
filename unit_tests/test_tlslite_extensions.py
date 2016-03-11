@@ -891,7 +891,7 @@ class TestTACKExtension(unittest.TestCase):
         b = TACKExtension.TACK()
 
         self.assertTrue(a == b)
-        self.assertFalse(a == None)
+        self.assertFalse(a is None)
         self.assertFalse(a == "test")
 
     def test_tack___eq___with_different_tacks(self):
