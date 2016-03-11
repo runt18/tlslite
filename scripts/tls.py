@@ -82,9 +82,11 @@ def printError(s):
     sys.exit(-1)
 
 
-def handleArgs(argv, argString, flagsList=[]):
+def handleArgs(argv, argString, flagsList=None):
     # Convert to getopt argstring format:
     # Add ":" after each arg, ie "abc" -> "a:b:c:"
+    if flagsList is None:
+        flagsList = []
     getOptArgString = ":".join(argString) + ":"
     try:
         opts, argv = getopt.getopt(argv, getOptArgString, flagsList)

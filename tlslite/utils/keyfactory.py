@@ -21,7 +21,7 @@ if cryptomath.pycryptoLoaded:
 # Factory Functions for RSA Keys
 # **************************************************************************
 
-def generateRSAKey(bits, implementations=["openssl", "python"]):
+def generateRSAKey(bits, implementations=None):
     """Generate an RSA key with the specified bit length.
 
     @type bits: int
@@ -30,6 +30,8 @@ def generateRSAKey(bits, implementations=["openssl", "python"]):
     @rtype: L{tlslite.utils.rsakey.RSAKey}
     @return: A new RSA private key.
     """
+    if implementations is None:
+        implementations = ["openssl", "python"]
     for implementation in implementations:
         if implementation == "openssl" and cryptomath.m2cryptoLoaded:
             return OpenSSL_RSAKey.generate(bits)
@@ -39,7 +41,7 @@ def generateRSAKey(bits, implementations=["openssl", "python"]):
 
 #Parse as an OpenSSL or Python key
 def parsePEMKey(s, private=False, public=False, passwordCallback=None,
-                implementations=["openssl", "python"]):
+                implementations=None):
     """Parse a PEM-format key.
 
     The PEM format is used by OpenSSL and other tools.  The
@@ -95,6 +97,8 @@ def parsePEMKey(s, private=False, public=False, passwordCallback=None,
 
     @raise SyntaxError: If the key is not properly formatted.
     """
+    if implementations is None:
+        implementations = ["openssl", "python"]
     for implementation in implementations:
         if implementation == "openssl" and cryptomath.m2cryptoLoaded:
             key = OpenSSL_RSAKey.parse(s, passwordCallback)
@@ -170,8 +174,10 @@ def _createPrivateKey(key):
     return _createPrivateRSAKey(key.n, key.e, key.d, key.p, key.q, key.dP,
                                 key.dQ, key.qInv)
 
-def _createPublicRSAKey(n, e, implementations = ["openssl", "pycrypto",
-                                                "python"]):
+def _createPublicRSAKey(n, e, implementations = None):
+    if implementations is None:
+        implementations = ["openssl", "pycrypto",
+                                                "python"]
     for implementation in implementations:
         if implementation == "openssl" and cryptomath.m2cryptoLoaded:
             return OpenSSL_RSAKey(n, e)
@@ -182,7 +188,9 @@ def _createPublicRSAKey(n, e, implementations = ["openssl", "pycrypto",
     raise ValueError("No acceptable implementations")
 
 def _createPrivateRSAKey(n, e, d, p, q, dP, dQ, qInv,
-                        implementations = ["pycrypto", "python"]):
+                        implementations = None):
+    if implementations is None:
+        implementations = ["pycrypto", "python"]
     for implementation in implementations:
         if implementation == "pycrypto" and cryptomath.pycryptoLoaded:
             return PyCrypto_RSAKey(n, e, d, p, q, dP, dQ, qInv)
